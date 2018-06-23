@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>addCampoDinamicamente</title>
+  <style type="text/css">
+  input[type="button"]{
+    margin-left: 5px;
+    width: 40px;
+    background: #CCC;
+  }
+  input{
+    margin-bottom: 5px;
+  }
+
+</style>
+</head>
+<body>
+  <form>
+    <input type="text" placeholder="Contato - 1" name="contato1"><input type="button" value="+" id="add">
+    <div id="contato"></div>
+    <input type="submit" name="enviar">
+  </form>
+
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript">
+    (function () {
+      campoDinamico(5);
+      function campoDinamico(param = 10){
+
+        var limit = param; //variavel para limitar o numero maximo de campos
+        var x = 1; //contador de campos
+
+        $("#add").on("click",function(e){
+          e.preventDefault();
+          if(x <= limit){
+            x++;
+            var cont = ($("#contato").find("div").length)+1; //cria um contralador para enumerar a variavel
+            $("#contato").append('<div><input type="text" name="contato'+(cont+1)+'" placeholder="Contato - '+(cont+1)+'"><input type="button" value="-" class="rem"><br></div>');
+          }else{
+            alert("Numero maximo de campo");
+          }
+        });
+
+        $("#contato").on("click",".rem",function(e){
+          x--;
+          e.preventDefault();
+          $(this).parent("div:last-child").remove(); //permite que apenas o ultimo campo seja removido, caso queira deixar qualquer campo excluivel, tirar last-child
+        });
+
+      } //termina a function
+
+    })();
+  </script>
+</body>
+</html>
